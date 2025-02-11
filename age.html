@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="age.css">
+    <style>
+        .container {
+            text-align:center;
+            margin-top: 15px;
+            background-color: antiquewhite;
+        }
+        .inputs-wrapper {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body background="C:\Users\DELL\Desktop\parctical.4\age.b.WEBP">
+<div class="container">
+    <h2>𝔼𝕧𝕖𝕣𝕪 𝕒𝕘𝕖 𝕙𝕒𝕤 𝕚𝕥𝕤 𝕓𝕖𝕒𝕦𝕥𝕚𝕗𝕦𝕝 𝕞𝕠𝕞𝕖𝕟𝕥</h2>
+    <h1>**<u>𝔸𝔾𝔼 ℂ𝔸𝕃ℂ𝕌𝕃𝔸𝕋𝕆ℝ</u>**</h1>
+    <div class="inputs-wrapper">
+        <label for="text"><b><i><u>Enter your Name:</u></i></b></label>
+        <input type="text" id="Name">
+        <label for="dob"><b><i><u>Enter your date of birth:</u></i></b></label>
+        <input type="date" id="dob">
+        
+        <label for="time"><b><i><u>Enter your time of birth:</u></i></b></label>
+        <input type="time" id="time">
+
+        <button id="calculateBtn"><b>Calculate</b></button>
+    </div>
+    <div class="outputs-wrapper">
+        <div>
+            <span id="years"> - </span>
+            <p>Years</p>
+        </div>
+        <div>
+            <span id="months"> - </span>
+            <p>Months</p>
+        </div>
+        <div>
+            <span id="days"> - </span>
+            <p>Days</p>
+        </div>
+        <div>
+            <span id="hours"> - </span>
+            <p>Hours</p>
+        </div>
+        <div>
+            <span id="minutes"> - </span>
+            <p>Minutes</p>
+        </div>
+        <div>
+            <span id="seconds"> - </span>
+            <p>Seconds</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+        const dob = new Date(document.getElementById('dob').value);
+        const time = document.getElementById('time').value;
+
+        // If both date and time are selected
+        if (dob.getTime() && time) {
+            // Set the time of birth
+            const [hours, minutes] = time.split(':');
+            dob.setHours(hours);
+            dob.setMinutes(minutes);
+        } else if (!dob.getTime()) {
+            alert("Please enter a valid date.");
+            return;
+        }
+
+        const today = new Date();
+        
+        let years = today.getFullYear() - dob.getFullYear();
+        let months = today.getMonth() - dob.getMonth();
+        let days = today.getDate() - dob.getDate();
+        let hours = today.getHours() - dob.getHours();
+        let minutes = today.getMinutes() - dob.getMinutes();
+        let seconds = today.getSeconds() - dob.getSeconds();
+
+        if (seconds < 0) {
+            seconds += 60;
+            minutes--;
+        }
+
+        if (minutes < 0) {
+            minutes += 60;
+            hours--;
+        }
+
+        if (hours < 0) {
+            hours += 24;
+            days--;
+        }
+
+        if (days < 0) {
+            months--;
+            days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        }
+
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        document.getElementById('years').innerText = years;
+        document.getElementById('months').innerText = months;
+        document.getElementById('days').innerText = days;
+        document.getElementById('hours').innerText = hours;
+        document.getElementById('minutes').innerText = minutes;
+        document.getElementById('seconds').innerText = seconds;
+    
+    });
+</script>
+
+</body>
+</html>
